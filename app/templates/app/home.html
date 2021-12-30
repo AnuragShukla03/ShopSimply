@@ -1,0 +1,163 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>Simply</title>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    
+    <script src="{% static '/js/script.js' %}"></script>    
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!--This code is used to prevent user to press back button on browser-->
+	<!--This will reduced the chance of same double enrty in database -->
+	<!--This code only execute on Next page which is Home.html-->
+	<script type = "text/javascript" >  
+		function preventBack() { window.history.forward(); }  
+		setTimeout("preventBack()", 0);  
+		window.onunload = function () { null };  
+	</script> 
+      
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'insertpage' %}">Simply</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'insertpage' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'calpage' %}">Calculator</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Super user
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'signup' %}">Add</a></li>
+                            <li><a class="dropdown-item" href="{% url 'SuperuserOp' %}">Delete</a></li>
+                            
+                        </ul>
+                    </li>
+
+                </ul>
+                  <form action="{% url 'searchpage' %}" method="POST" class="d-flex">
+                    {% csrf_token %}
+                    <input class="form-control me-2" name="searchtv" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    
+    <h3>{{mssg}}</h3> 
+
+    <div class="container">
+
+        <form action="{% url 'insertpage' %}" name="frm" method="POST">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Full Name</label>
+                <label for="exampleInputPassword1" id="error" class="form-label" style="color: red; margin-left: 10px;"></label>
+                <input type="text" name="name" value="{{key1}}"  class="form-control" id="exampleInputPassword1">
+                <a class="fa-10x"  href="{% url 'speak1' %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mic" viewBox="0 0 16 16">
+                    <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+                    <path d="M10 8a2 2 0 1 1-4 0V3a2 2 0 1 1 4 0v5zM8 0a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V3a3 3 0 0 0-3-3z"/>
+                </svg></a>
+            </div>
+
+            
+
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Mobile/Phone</label>
+                <label for="exampleInputPassword1" id="error" class="form-label" style="color: red; margin-left: 10px;"></label>
+                <input type="number" name="phone"  class="form-control" id="exampleInputPassword1">
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Principle Amount</label>
+              <input type="number" name="amount" class="form-control" id="exampleInputPassword1">
+            </div>
+           
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Weight</label>
+                <input type="number" name="weight" step="any" class="form-control" id="exampleInputPassword1">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Rate(Rate of Interest)</label>
+                <input type="number" name="rate" step="any" class="form-control" id="exampleInputPassword1">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Description</label>
+                <input type="text" name="description"  class="form-control" id="exampleInputPassword1">
+                
+            </div>
+
+            
+           
+            <button type="submit" onclick="check_frm()" class="btn btn-primary">Insert</button>
+            
+
+          </form>
+          
+        <table class="table table-hover table-bordered my-5">
+            <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">Name</th>
+                <th scope="col">phone</th>
+                <th scope="col">Amount</th>
+                <th scope="col" >Date</th>
+                <th scope="col">Weight</th>
+                <th scope="col">Rate(%)</th>
+                <th scope="col">Description</th>
+                <th scope="col">Action</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in all_data %}
+                <tr >
+                   <th scope="row">{{i.id}}</th>
+                   <td><a href="{% url 'detailpage' pk=i.id %}">{{i.Name}}</a></td>
+                   <td>{{i.Contact}}</td>
+                   <td>{{i.Amount}}</td>
+                   <td><div class="content" style="max-width: 100px; max-height: 40px; display: block;  overflow: auto;">{{i.Date}}</div></td>
+                   <td>{{i.Weight}}</td>
+                   <td>{{i.Rate}}</td>
+                   <td>{{i.Description}}</td>
+                   
+                   
+                   <td>
+                    <a href="{% url 'editpage' pk=i.id %}" type="button" class="btn-sm mx-1 btn-primary">Edit</a>
+                    
+                    <a href="{% url 'delete' pk=i.id %}" onclick="on_delete()" type="button" class="btn-sm mx-1 btn-danger">Delete</a>
+                   </td>
+                   
+                </tr>>   
+                {% endfor %}
+              
+            </tbody>
+          </table>
+    </div>
+</body>
+
+</html>
