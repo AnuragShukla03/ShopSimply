@@ -3,7 +3,7 @@ from sys import excepthook
 from django.http import request
 from django.shortcuts import render, redirect
 from datetime import date, datetime
-import speech_recognition as sr
+
 import re
 
 from app.models import Customer, SuperUser
