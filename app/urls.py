@@ -18,6 +18,6 @@ urlpatterns = [
     path('deleteSuper/<int:sn>',views.DeleteSuper,name="DeleteSuper"),
     path('calculator/',views.ShowCal,name="calpage"),
     path('calculated/',views.Calculator,name="calculated"),
-    path('speak1/',views.command1,name="speak1"),
+    #path('speak1/',views.command1,name="speak1"),
     
 ]

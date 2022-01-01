@@ -240,20 +240,20 @@ def Calculator(request):
     return render(request, 'app/calculate.html')
 
 
-def command1(request):
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        print("Listening...")
-        audio = r.listen(source)
+# def command1(request):
+#     r = sr.Recognizer()
+#     with sr.Microphone() as source:
+#         print("Listening...")
+#         audio = r.listen(source)
 
-        try:
-            print("Recognizing...")
-            query = r.recognize_google(audio, language='en-in')
-            q = query.lower()
-            return render(request, 'app/home.html', {'key1': q})
+#         try:
+#             print("Recognizing...")
+#             query = r.recognize_google(audio, language='en-in')
+#             q = query.lower()
+#             return render(request, 'app/home.html', {'key1': q})
 
-        except:
+#         except:
 
-            return "None"
+#             return "None"
 
-        return query
+#         return query
