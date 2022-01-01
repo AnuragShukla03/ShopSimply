@@ -107,7 +107,8 @@
 
             <button onclick="update()" type="submit" class="btn btn-primary">Update</button>
             <a href="{% url 'insertpage' %}" type="button" class="btn btn-success">GoBack</a>
-
+            
+            <a style="float: right;" href="{% url 'delete' pk=customer.id %}" onclick="on_delete()" type="button" class="btn btn-danger">Delete</a>
 
         </form>
 

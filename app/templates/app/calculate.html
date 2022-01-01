@@ -16,9 +16,10 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
 
-    
-    <center style="color: red;">{{mssg}}</center>
-    
+    {% if mssg %}
+    <center><div class="alert alert-danger" role="alert">{{mssg}}</div></center>
+    {% endif %}
+
     <div class="container">
         <h1 mx-4 my-4>Calculate Interest</h1>
 

@@ -70,26 +70,45 @@ def InsertCustomer(request):
             weight = request.POST['weight']
             rate = request.POST['rate']
             description = request.POST['description']
-
+            
             today_date = date.today().strftime("%d/%m/%y")
 
-            customer = Customer.objects.create(
-                Name=name, Contact=contact, Amount=amount, Date=today_date, Weight=weight, Rate=rate, Description=description)
+           
+
+            if name=="" and contact=="" and amount=="" and weight=="" and rate=="":
+                message = "Fields Cannot be empty"
+                all_customer = Customer.objects.all()
+                return render(request, 'app/home.html',{'mssgAlert':message,'all_data': all_customer})
+            else:
+                message = f"Customer {name} is Successfully Added" 
+                customer = Customer.objects.create(Name=name, Contact=contact, Amount=amount, Date=today_date, Weight=weight, Rate=rate, Description=description)
+                all_customer = Customer.objects.all()
+                return render(request, 'app/home.html',{'mssgSuccess':message,'all_data': all_customer})
 
         except Exception:
             message = "Fields Cannot be empty or Something went wrong"
             print(message)
 
+    # we write this because if Super user not make post request then also he will
+    # able to see database
     all_customer = Customer.objects.all()
     return render(request, 'app/home.html', {'all_data': all_customer})
 
 
 def Delete(request, pk):
+    try:
+        customer = Customer.objects.get(id=pk)
+        name = customer.Name
+        id = customer.id
+        message = f"Customer Id:{id} with Name:{name} is Successfully Deleted"
+        customer.delete()
 
-    customer = Customer.objects.get(id=pk)
-    customer.delete()
 
-    return redirect('insertpage')
+        all_customer = Customer.objects.all()
+        return render(request, 'app/home.html',{'mssgSuccess':message,'all_data': all_customer})
+
+    except Exception:
+        return redirect('insertpage')
 
 
 def Editpage(request, pk):
@@ -134,7 +153,6 @@ def EditUser(request, pk):
         customer.Description = newDescription
 
         customer.save()
-
         return redirect('insertpage')
 
 

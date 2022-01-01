@@ -20,7 +20,13 @@ function check_frm(){
 }
 
 function on_delete(){
-    alert("Are you sure you Want to delete this entry")
+    let con=confirm("Are you sure you Want to delete this entry")
+
+    if (con==false){
+       location.href = '/insert/';
+    }
+    
+
 }
 
 
