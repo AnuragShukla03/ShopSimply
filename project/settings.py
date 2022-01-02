@@ -27,7 +27,8 @@ SECRET_KEY = 'django-insecure-1w448^&b_*huq6_3fgbq#pks2n8fojk))i^k9)j$-3yz1%yi53
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 #'127.0.0.1','simplymakeeasy.herokuapp.com'
-ALLOWED_HOSTS = ['https://simplydatabase.herokuapp.com/','127.0.0.1:8000']
+
+ALLOWED_HOSTS = ['127.0.0.1:8000','simplydatabase.herokuapp.com']
 
 
 # Application definition
